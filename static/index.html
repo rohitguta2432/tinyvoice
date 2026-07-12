@@ -6,13 +6,13 @@
 <title>tinyvoice — a tiny model that writes like me</title>
 <style>
   :root {
-    --bg: #07060b;
-    --ink: #ece9f4;
-    --dim: #8b86a3;
-    --accent: #a78bfa;
-    --accent-hot: #c4b5fd;
-    --glass: rgba(255, 255, 255, 0.045);
-    --edge: rgba(255, 255, 255, 0.09);
+    --bg: #faf8f4;
+    --ink: #1c1917;
+    --dim: #78716c;
+    --accent: #6d28d9;
+    --accent-soft: #ede9fe;
+    --card: #ffffff;
+    --edge: #e7e2da;
   }
   * { box-sizing: border-box; margin: 0; }
   html, body { height: 100%; }
@@ -22,44 +22,39 @@
     font: 16px/1.55 -apple-system, "SF Pro Text", Segoe UI, sans-serif;
     overflow-x: hidden;
   }
-  /* aurora + starfield stage */
-  .stage {
-    position: fixed; inset: 0; z-index: -1; overflow: hidden;
+  /* soft pastel wash */
+  .stage { position: fixed; inset: 0; z-index: -1; overflow: hidden; }
+  .blob {
+    position: absolute; border-radius: 50%; filter: blur(70px); opacity: .55;
+    animation: drift 22s ease-in-out infinite alternate;
   }
-  .aurora {
-    position: absolute; width: 130vmax; height: 130vmax;
-    left: 50%; top: -80vmax; transform: translateX(-50%);
-    background:
-      radial-gradient(closest-side, rgba(167,139,250,.16), transparent 65%),
-      radial-gradient(closest-side, rgba(99,102,241,.10) 20%, transparent 70%);
-    animation: drift 26s ease-in-out infinite alternate;
-    filter: blur(30px);
-  }
+  .blob.a { width: 55vmax; height: 55vmax; left: -18vmax; top: -22vmax;
+            background: radial-gradient(closest-side, #ddd3fb, transparent 70%); }
+  .blob.b { width: 45vmax; height: 45vmax; right: -14vmax; top: -10vmax;
+            background: radial-gradient(closest-side, #ffe3cf, transparent 70%);
+            animation-delay: -8s; }
   @keyframes drift {
-    from { transform: translateX(-56%) rotate(-4deg); }
-    to   { transform: translateX(-44%) rotate(5deg); }
+    from { transform: translateY(-3%) rotate(-2deg); }
+    to   { transform: translateY(4%) rotate(3deg); }
   }
-  .star { position: absolute; border-radius: 50%; background: #fff; opacity: .28;
-          animation: twinkle 4s ease-in-out infinite; }
-  @keyframes twinkle { 50% { opacity: .06; } }
 
   main { max-width: 1060px; margin: 0 auto; padding: 56px 24px 80px; }
 
   header { text-align: center; animation: rise .8s cubic-bezier(.2,.8,.2,1) both; }
   .badge {
     display: inline-block; padding: 5px 14px; border-radius: 999px;
-    border: 1px solid var(--edge); background: var(--glass);
-    color: var(--accent-hot); font-size: 12.5px; letter-spacing: .14em;
-    text-transform: uppercase; backdrop-filter: blur(8px);
+    border: 1px solid var(--edge); background: var(--card);
+    color: var(--accent); font-size: 12.5px; letter-spacing: .14em;
+    text-transform: uppercase; font-weight: 600;
+    box-shadow: 0 1px 3px rgba(28,25,23,.05);
   }
   h1 {
     margin: 18px 0 10px; font-size: clamp(38px, 6vw, 64px); font-weight: 800;
-    letter-spacing: -0.03em;
-    background: linear-gradient(180deg, #fff 30%, #b7aede);
-    -webkit-background-clip: text; background-clip: text; color: transparent;
+    letter-spacing: -0.03em; color: var(--ink);
   }
+  h1 em { font-style: normal; color: var(--accent); }
   .sub { color: var(--dim); font-size: clamp(15px, 2.2vw, 18px); }
-  .sub b { color: var(--ink); font-weight: 600; }
+  .sub b { color: var(--ink); font-weight: 650; }
 
   form {
     margin: 40px auto 0; max-width: 640px; display: flex; gap: 10px;
@@ -67,18 +62,20 @@
   }
   input {
     flex: 1; padding: 15px 18px; border-radius: 14px; border: 1px solid var(--edge);
-    background: var(--glass); color: var(--ink); font-size: 16px; outline: none;
-    backdrop-filter: blur(10px); transition: border-color .2s, box-shadow .2s;
+    background: var(--card); color: var(--ink); font-size: 16px; outline: none;
+    box-shadow: 0 1px 3px rgba(28,25,23,.05);
+    transition: border-color .2s, box-shadow .2s;
   }
-  input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(167,139,250,.15); }
+  input::placeholder { color: #a8a29e; }
+  input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
   button {
     padding: 15px 26px; border-radius: 14px; border: 0; cursor: pointer;
-    font-size: 15.5px; font-weight: 700; color: #14101f;
-    background: linear-gradient(135deg, var(--accent-hot), var(--accent));
+    font-size: 15.5px; font-weight: 700; color: #fff;
+    background: linear-gradient(135deg, #7c3aed, var(--accent));
     transition: transform .15s, box-shadow .2s;
-    box-shadow: 0 6px 24px rgba(167,139,250,.35);
+    box-shadow: 0 6px 20px rgba(109,40,217,.28);
   }
-  button:hover { transform: translateY(-1px); box-shadow: 0 10px 32px rgba(167,139,250,.5); }
+  button:hover { transform: translateY(-1px); box-shadow: 0 10px 28px rgba(109,40,217,.38); }
   button:disabled { opacity: .55; cursor: wait; transform: none; }
 
   .duel {
@@ -87,25 +84,26 @@
   }
   @media (max-width: 800px) { .duel { grid-template-columns: 1fr; } }
   .panel {
-    border: 1px solid var(--edge); border-radius: 20px; background: var(--glass);
-    backdrop-filter: blur(14px); padding: 22px 24px; min-height: 340px;
+    border: 1px solid var(--edge); border-radius: 20px; background: var(--card);
+    padding: 22px 24px; min-height: 340px;
     display: flex; flex-direction: column; position: relative; overflow: hidden;
+    box-shadow: 0 1px 3px rgba(28,25,23,.05), 0 12px 32px -18px rgba(28,25,23,.12);
     transition: border-color .4s, box-shadow .4s;
   }
   .panel.mine.done {
-    border-color: rgba(167,139,250,.55);
-    box-shadow: 0 0 60px rgba(167,139,250,.14), inset 0 0 40px rgba(167,139,250,.05);
+    border-color: #c4b5fd;
+    box-shadow: 0 1px 3px rgba(28,25,23,.05), 0 16px 44px -14px rgba(109,40,217,.28);
   }
   .panel h2 { font-size: 13px; letter-spacing: .12em; text-transform: uppercase;
               color: var(--dim); display: flex; align-items: center; gap: 8px; }
-  .panel.mine h2 { color: var(--accent-hot); }
-  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--dim); }
-  .mine .dot { background: var(--accent); box-shadow: 0 0 12px var(--accent); }
+  .panel.mine h2 { color: var(--accent); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: #d6d3d1; }
+  .mine .dot { background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
   .out {
-    margin-top: 14px; white-space: pre-wrap; font-size: 14.5px; color: #d9d5e8;
+    margin-top: 14px; white-space: pre-wrap; font-size: 14.5px; color: #44403c;
     flex: 1; overflow-y: auto; max-height: 52vh;
   }
-  .out:empty::before { content: "…"; color: #3f3b52; }
+  .out:empty::before { content: "…"; color: #d6d3d1; }
   .caret {
     display: inline-block; width: 8px; height: 17px; margin-left: 2px;
     background: var(--accent); vertical-align: -3px;
@@ -114,17 +112,17 @@
   @keyframes blink { 50% { opacity: 0; } }
   @keyframes rise { from { opacity: 0; transform: translateY(22px); } }
 
-  footer { margin-top: 40px; text-align: center; color: #4d4863; font-size: 13px; }
+  footer { margin-top: 40px; text-align: center; color: #a8a29e; font-size: 13px; }
   footer span { color: var(--dim); }
 </style>
 </head>
 <body>
-<div class="stage"><div class="aurora"></div></div>
+<div class="stage"><div class="blob a"></div><div class="blob b"></div></div>
 
 <main>
   <header>
     <span class="badge">0.5B params · fine-tuned on 28 posts · runs on a laptop</span>
-    <h1>tinyvoice</h1>
+    <h1>tiny<em>voice</em></h1>
     <p class="sub">The same tiny model, twice. One is stock. One spent <b>an afternoon</b> reading my posts.</p>
   </header>
 
@@ -194,16 +192,6 @@ $("f").addEventListener("submit", async (e) => {
     $("go").disabled = false;
   }
 });
-
-// starfield
-const stage = document.querySelector(".stage");
-for (let i = 0; i < 70; i++) {
-  const s = document.createElement("div");
-  s.className = "star";
-  const z = Math.random() * 2 + 0.6;
-  s.style.cssText = `width:${z}px;height:${z}px;left:${Math.random()*100}vw;top:${Math.random()*100}vh;animation-delay:${Math.random()*4}s`;
-  stage.appendChild(s);
-}
 </script>
 </body>
 </html>
