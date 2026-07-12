@@ -1,7 +1,7 @@
 # tinyvoice
 
-A 0.5B-parameter model fine-tuned to write LinkedIn posts in **my** voice — trained
-in an afternoon, on a laptop, on my own 28 published posts. No GPU cluster, no cloud.
+A 0.5B-parameter model fine-tuned to write in **my** voice — trained in an
+afternoon, on a laptop, on 28 of my own posts. No GPU cluster, no cloud.
 
 The web UI puts the stock model and the tuned one side by side: give both the same
 topic and watch the difference stream in.

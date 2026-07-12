@@ -1,4 +1,4 @@
-"""Build MLX chat-format train/valid JSONL from Rohit's logged LinkedIn posts.
+"""Build MLX chat-format train/valid JSONL from Rohit's logged posts.
 
 Pairs: brief (blockquote on the wiki post page) -> final copy (assets/<stem>_post.txt).
 """
