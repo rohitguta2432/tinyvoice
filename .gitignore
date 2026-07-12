@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+train.log
+data/train.jsonl
+data/valid.jsonl
+adapters/0*.safetensors
